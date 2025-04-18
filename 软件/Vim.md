@@ -70,7 +70,6 @@ syntax enable										" 自动开启语法高亮。
 
 autocmd VimEnter * :startinsert			" 预设编辑模式。
 
-
 " 预设为窗口最大化。
 if has('win32') || has('win64')    
 	au GUIEnter * simalt ~x
@@ -198,6 +197,7 @@ vnoremap <silent> <C-l> $
 | \<Del>     | x      | 删除当前光标所在处的字符，用 5x 表示删除 5 个字符。 |
 | \<Ctrl>＋z | u      | 撤销上一步操作，用 5u 表示撤销 5 次。               |
 | \<Ctrl>＋y |        | 反撤销上一步操作。                                  |
+| .          |        | 重复上一步操作。                                    |
 | cw         |        | 删除光标处一个单词，并进入插入模式。                |
 | ci(        |        | 删除括号内的内容，并进入插入模式。                  |
 | c^         |        | 删除至行首，并进入插入模式。                        |
@@ -233,7 +233,7 @@ vnoremap <silent> <C-l> $
 
 ## 插件
 
-### 插件的安装
+### Vim-plug
 
 安装 vim-plug，下载 plug.vim 文件，放在安装文件夹下“vimfiles\autoload\”内。
 [https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim]()
@@ -245,9 +245,9 @@ vnoremap <silent> <C-l> $
 " 安装插件。
 call plug#begin()
 
-Plug 'vim-airline/vim-airline'
+Plug 'Vim-airline/Vim-airline'
 
-Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/Vim-autoformat'
 let g:autoformat_verbosemode=0 " 详细模式。
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 1
@@ -264,9 +264,8 @@ let g:formatters_sql = ['sqlformat']
 " au BufWrite *:Autoformat
 " autocmd BufWrite *.sql,*.c,*.py,*.java,*.js:Autoformat " 设置发生保存事件时执行格式化。
 
-Plug 'preservim/nerdtree'
-
-Plug 'Xuyuanp/nerdtree-git-plugin' " 目录树 git 状态显示
+Plug 'Preservim/Nerdtree'
+Plug 'Xuyuanp/Nerdtree-git-plugin' " 目录树 git 状态显示
 " 设置“<F1>”开启和关闭 NerdTree。
 map <F1> :NERDTreeToggle<CR>
 let NERDTreeChDirMode=1
@@ -274,19 +273,19 @@ let NERDTreeShowBookmarks=1 " 显示书签
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$'] " 设置忽略文件类型
 let NERDTreeWinSize=25 " 窗口大小
 
-Plug 'mbbill/undotree'
+Plug 'Mbbill/Undotree'
 " 设置“<F2>”开启和关闭 Undotree。
 map <F2> :UndotreeToggle<CR>
 
-Plug 'easymotion/vim-easymotion'  
-let g:EasyMotion_smartcase = 1
-" let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion.
-map <Leader><leader>h <Plug>(easymotion-linebackward)
-map <Leader><Leader>j <Plug>(easymotion-j)
-map <Leader><Leader>k <Plug>(easymotion-k)
-map <Leader><leader>l <Plug>(easymotion-lineforward)
-" 重复上一次操作。
-map <Leader><leader>. <Plug>(easymotion-repeat)
+Plug 'Yggdroot/IndentLine'
+let g:indentLine_enabled = 1		" 使插件生效
+let g:indentLine_char = '|'		" 设置缩进字符，可以是 '|', '┆', '┊' 等
+let g:indentLine_conceallevel = 2 	" 使插件正常运行
+
+Plug 'Godlygeek/Tabular'
+nnoremap <silent> <C-t> :Tabularize \/\|\/
+snoremap <silent> <C-t> :Tabularize \/\|\/
+vnoremap <silent> <C-t> :Tabularize \/\|\/
 
 call plug#end()
 ```
@@ -294,7 +293,51 @@ call plug#end()
 最后，启动 Vim，安装插件。
 
 ```
-:PlugInstall
+:PlugInstall    ; 安装所有插件
 ```
 
 ![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Vim/PixPin_2025-04-16_05-14-39.jpg)
+
+插件的其他命令：
+
+```
+:PlugUpdate      " 更新所有插件
+:PlugUpgrade    " 更新插件本身
+:PlugClean        " 删除未标记的插件
+```
+
+### Vim-airline/Vim-airline
+
+Vim-airline 插件用来在底部与顶部展示状态信息的。
+
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Vim/PixPin_2025-04-19_02-35-37.jpg)
+
+### Chiel92/Vim-autoformat
+
+自动格式化管理插件，可根据不同文件类型使用不同的格式化工具。
+
+### Preservim/Nerdtree 与 Xuyuanp/Nerdtree-git-plugin
+
+这是 Vim 编辑器的文件系统浏览器。
+
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Vim/PixPin_2025-04-19_02-34-19.jpg)
+
+### Mbbill/Undotree
+
+这是用来查看内容变更历史，以便于撤销或者重做的操作。
+
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Vim/PixPin_2025-04-19_02-34-45.jpg)
+
+### Yggdroot/IndentLine
+
+这是用来在 vim 中提供缩进线标示功能的。
+
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Vim/PixPin_2025-04-19_02-38-33.jpg)
+
+### Godlygeek/Tabular
+
+这是用来快速按照给定的分隔符号完成指定范围内的对齐插件。
+
+```
+:Tabularize /|/     ; 安装“|”对齐。
+```

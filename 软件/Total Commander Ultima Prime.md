@@ -150,8 +150,8 @@ Total Commander Ultima Prime 有左右两个窗口，只需要从一个窗口拖
 ## 插件
 
 可以在以下两个网站下载：
-https://www.ghisler.com/plugins.htm
-http://totalcmd.net/
+[https://www.ghisler.com/plugins.htm]()
+[http://totalcmd.net/]()
 
 ### TConsole
 

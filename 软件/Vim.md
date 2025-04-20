@@ -47,13 +47,60 @@ Vim 的配置文件在安装目录下的“\_vimrc”。它没有后缀名，但
 这是我个人向设置：
 
 ```
+" Vim with all enhancements
+source $VIMRUNTIME/vimrc_example.vim
+
+" Remap a few keys for Windows behavior
+source $VIMRUNTIME/mswin.vim
+
+" Mouse behavior (the Windows way)
+behave mswin
+
+" Use the internal diff if available.
+" Otherwise use the special 'diffexpr' for Windows.
+if &diffopt !~# 'internal'
+  set diffexpr=MyDiff()
+endif
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '" ' . arg1 . '" ' | endif
+  let arg1 = substitute(arg1, '!', '\!', 'g')
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '" ' . arg2 . '" ' | endif
+  let arg2 = substitute(arg2, '!', '\!', 'g')
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '" ' . arg3 . '" ' | endif
+  let arg3 = substitute(arg3, '!', '\!', 'g')
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      if empty(&shellxquote)
+        let l:shxq_sav = ''
+        set shellxquote&
+      endif
+      let cmd = '" ' . $VIMRUNTIME . '\diff" '
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff" '
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  let cmd = substitute(cmd, '!', '\!', 'g')
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+  if exists('l:shxq_sav')
+    let &shellxquote=l:shxq_sav
+  endif
+endfunction
+
 set autoread										" 自动更新，当文件在外部被修改时。
 set autowrite										" 自动保存。
 set clipboard+=unnamed					" 共享剪切板。
 set nobackup										" 不备份。
 set noundofile										" 无撤销文件。
 set noswapfile										" 无 swap 文件。
-set noexpandtab									" 避免“\<Tab>”转为空格。
+set noexpandtab									" 避免“<Tab>”转为空格。
 set wrap												" 自动换行。
 set hlsearch											" 搜索时高亮。
 set ignorecase										" 查找大小写不敏感，
@@ -80,62 +127,236 @@ function! MaximizeWindow()
 	silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
-" 定义全局函数：判断是否在文件最后一行，并根据情况移动。
-function! MoveDownOrEnd()
-    let l:current_line = line('.')
-    let l:current_col = col('.')
-    let l:view = winsaveview()
-    " 尝试向下移动一个屏幕行。
-    execute "normal! gj"
-    let l:new_view = winsaveview()
-    " 判断视图是否未改变（无法滚动/移动）且光标位于窗口最后一行。
-    if l:view.lnum == l:new_view.lnum && l:view.topline == l:new_view.topline
-        \ && winline() == winheight(0)
-        execute "normal! $"
-    else
-        call winrestview(l:new_view)
-    endif
+" 上移一个屏幕行，若无法移动，则跳到行首
+function! MoveUp()
+  let [old_line, old_col] = [line('.'), col('.')]
+  normal! gk
+  if [line('.'), col('.')] == [old_line, old_col]
+    normal! ^
+  endif
 endfunction
 
-" 将方向键键映射
-nnoremap <silent> <Up> gk
-inoremap <silent> <Up> <C-o>gk
-snoremap <silent> <Up> gk
-vnoremap <silent> <Up> gk
-nnoremap <silent> <Down> :call MoveDownOrEnd()<CR>
-inoremap <silent> <Down> <C-o>:call MoveDownOrEnd()<CR>
-snoremap <silent> <Down> gj
-vnoremap <silent> <Down> gj
-nnoremap <silent> <Left> h
-snoremap <silent> <Left> h
-vnoremap <silent> <Left> h
-nnoremap <silent> <Right> l
-snoremap <silent> <Right> l
-vnoremap <silent> <Right> l
+" 下移一个屏幕行，若无法移动，则跳到行尾
+function! MoveDown()
+  let [old_line, old_col] = [line('.'), col('.')]
+  normal! gj
+  if [line('.'), col('.')] == [old_line, old_col]
+    normal! $
+  endif
+endfunction
 
-" 将“\<Ctrl>＋q”映射到可视模式；将“\<Ctrl>＋w”映射到可视行模式。
-nnoremap <silent> <C-q> v
-inoremap <silent> <C-q> <C-o>v
-snoremap <silent> <C-q> <C-o>v
-vnoremap <silent> <C-q> <C-o>v
-nnoremap <silent> <C-w> V
-inoremap <silent> <C-w> <C-o>V
-snoremap <silent> <C-w> <C-o>V
-vnoremap <silent> <C-w> <C-o>V
+" 左移一个字符，若无法移动，则跳到上一行末尾
+function! MoveLeft()
+  let [old_line, old_col] = [line('.'), col('.')]
+  normal! h
+  if [line('.'), col('.')] == [old_line, old_col]
+    normal! gk$
+  endif
+endfunction
 
-" 其他键位映射。
-nnoremap <silent> <C-k> gg
-snoremap <silent> <C-k> gg
-vnoremap <silent> <C-k> gg
-nnoremap <silent> <C-j> G
-snoremap <silent> <C-j> G
-vnoremap <silent> <C-j> G
-nnoremap <silent> <C-h> ^
-snoremap <silent> <C-h> ^
-vnoremap <silent> <C-h> ^
-nnoremap <silent> <C-l> $
-snoremap <silent> <C-l> $
-vnoremap <silent> <C-l> $
+" 右移一个字符，若无法移动，则跳到下一行行首
+function! MoveRight()
+  let [old_line, old_col] = [line('.'), col('.')]
+  normal! l
+  if [line('.'), col('.')] == [old_line, old_col]
+    normal! gj^
+  endif
+endfunction
+
+" 绑定方向键
+nnoremap <silent> <Up>    :call MoveUp()<CR>
+nnoremap <silent> <Down>  :call MoveDown()<CR>
+nnoremap <silent> <Left>  :call MoveLeft()<CR>
+nnoremap <silent> <Right> :call MoveRight()<CR>
+
+
+" 移动映射
+nnoremap <silent> <Up> :call MoveUp()<CR>
+inoremap <silent> <Up> <C-o>:call MoveUp()<CR>
+snoremap <silent> <Up> :call MoveUp()<CR>
+vnoremap <silent> <Up> :call MoveUp()<CR>
+nnoremap <silent> <Down> :call MoveDown()<CR>
+inoremap <silent> <Down> <C-o>:call MoveDown()<CR>
+snoremap <silent> <Down> :call MoveDown()<CR>
+vnoremap <silent> <Down> :call MoveDown()<CR>
+nnoremap <silent> <Left> :call MoveLeft()<CR>
+inoremap <silent> <Left> <C-o>:call MoveLeft()<CR>
+snoremap <silent> <Left> :call MoveLeft()<CR>
+vnoremap <silent> <Left> :call MoveLeft()<CR>
+nnoremap <silent> <Right> :call MoveRight()<CR>
+inoremap <silent> <Right> <C-o>:call MoveRight()<CR>
+snoremap <silent> <Right> :call MoveRight()<CR>
+vnoremap <silent> <Right> :call MoveRight()<CR>
+
+nnoremap <silent> e :call MoveUp()<CR>
+snoremap <silent> e :call MoveUp()<CR>
+vnoremap <silent> e :call MoveUp()<CR>
+nnoremap <silent> <C-e> :call MoveUp()<CR>
+inoremap <silent> <C-e> <C-o>:call MoveUp()<CR>
+snoremap <silent> <C-e> :call MoveUp()<CR>
+vnoremap <silent> <C-e> :call MoveUp()<CR>
+nnoremap <silent> d :call MoveDown()<CR>
+snoremap <silent> d :call MoveDown()<CR>
+vnoremap <silent> d :call MoveDown()<CR>
+nnoremap <silent> <C-d> :call MoveDown()<CR>
+inoremap <silent> <C-d> <C-o>:call MoveDown()<CR>
+snoremap <silent> <C-d> :call MoveDown()<CR>
+vnoremap <silent> <C-d> :call MoveDown()<CR>
+nnoremap <silent> s :call MoveLeft()<CR>
+snoremap <silent> s :call MoveLeft()<CR>
+vnoremap <silent> s :call MoveLeft()<CR>
+nnoremap <silent> <C-s> :call MoveLeft()<CR>
+inoremap <silent> <C-s> <C-o>:call MoveLeft()<CR>
+snoremap <silent> <C-s> :call MoveLeft()<CR>
+vnoremap <silent> <C-s> :call MoveLeft()<CR>
+nnoremap <silent> f :call MoveRight()<CR>
+snoremap <silent> f :call MoveRight()<CR>
+vnoremap <silent> f :call MoveRight()<CR>
+nnoremap <silent> <C-f> :call MoveRight()<CR>
+inoremap <silent> <C-f> <C-o>:call MoveRight()<CR>
+snoremap <silent> <C-f> :call MoveRight()<CR>
+vnoremap <silent> <C-f> :call MoveRight()<CR>
+
+nnoremap <silent> w ^
+snoremap <silent> w ^
+vnoremap <silent> w ^
+nnoremap <silent> <C-w> ^
+inoremap <silent> <C-w> <C-o>^
+snoremap <silent> <C-w> ^
+vnoremap <silent> <C-w> ^
+nnoremap <silent> r $
+snoremap <silent> r $
+vnoremap <silent> r $
+nnoremap <silent> <C-r> $
+inoremap <silent> <C-r> <C-o>$
+snoremap <silent> <C-r> $
+vnoremap <silent> <C-r> $
+nnoremap <silent> t gg
+snoremap <silent> t gg
+vnoremap <silent> t gg
+nnoremap <silent> <C-t> gg
+inoremap <silent> <C-t> <C-o>gg
+snoremap <silent> <C-t> gg
+vnoremap <silent> <C-t> gg
+nnoremap <silent> g G
+snoremap <silent> g G
+vnoremap <silent> g G
+nnoremap <silent> <C-g> G
+inoremap <silent> <C-g> <C-o>G
+snoremap <silent> <C-g> G
+vnoremap <silent> <C-g> G
+
+" 模式映射
+nnoremap <silent> <F13> <Esc>a
+snoremap <silent> <F13> <Esc>a
+vnoremap <silent> <F13> <Esc>a
+nnoremap <silent> <C-j> v
+inoremap <silent> <C-j> <C-o>v
+nnoremap <silent> <C-k> V
+inoremap <silent> <C-k> <C-o>V
+nnoremap <silent> <C-b> r
+
+" 修改映射
+nnoremap <silent> x d
+snoremap <silent> x d
+vnoremap <silent> x d
+nnoremap <silent> <C-x> d
+inoremap <silent> <C-x> <C-o>d
+snoremap <silent> <C-x> d
+vnoremap <silent> <C-x> d
+nnoremap <silent> c y
+snoremap <silent> c y
+vnoremap <silent> c y
+nnoremap <silent> <C-c> y
+inoremap <silent> <C-c> <C-o>y
+snoremap <silent> <C-c> y
+vnoremap <silent> <C-c> y
+nnoremap <silent> v p
+snoremap <silent> v p
+vnoremap <silent> v p
+nnoremap <silent> <C-v> p
+inoremap <silent> <C-v> <C-o>p
+snoremap <silent> <C-v> p
+vnoremap <silent> <C-v> p
+
+nnoremap <silent> z u
+snoremap <silent> z u
+vnoremap <silent> z u
+nnoremap <silent> <C-z> u
+inoremap <silent> <C-z> <C-o>u
+snoremap <silent> <C-z> u
+vnoremap <silent> <C-z> u
+nnoremap <silent> q .
+snoremap <silent> q .
+vnoremap <silent> q .
+nnoremap <silent> <C-q> .
+inoremap <silent> <C-q> <C-o>.
+snoremap <silent> <C-q> .
+vnoremap <silent> <C-q> .
+
+" 搜索映射
+nnoremap <silent> . n
+snoremap <silent> . n
+vnoremap <silent> . n
+nnoremap <silent> <C-.> n
+inoremap <silent> <C-.> <C-o>n
+snoremap <silent> <C-.> n
+vnoremap <silent> <C-.> n
+nnoremap <silent> , N
+snoremap <silent> , N
+vnoremap <silent> , N
+nnoremap <silent> <C-,> N
+inoremap <silent> <C-,> <C-o>N
+snoremap <silent> <C-,> N
+vnoremap <silent> <C-,> N
+
+" 命令映射
+nnoremap <C-;> :
+inoremap <C-;> <C-o>:
+
+" 安装插件。
+call plug#begin()
+
+Plug 'Vim-airline/Vim-airline'
+
+Plug 'Chiel92/Vim-autoformat'
+let g:autoformat_verbosemode=0 " 详细模式。
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 1
+let g:autoformat_remove_trailing_spaces = 1
+let g:formatdef_hl_js='" js-beautify" '
+let g:formatdef_hl_c='" clang-format -style=\" {BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, PointerAlignment: Right, ColumnLimit: 150, SpacesBeforeTrailingComments: 1}\" " ' " 指定格式化的方式, 使用配置参数。
+let g:formatters_c = ['hl_c']
+let g:formatters_cpp = ['hl_c']
+let g:formatters_json = ['hl_js']
+let g:formatters_js = ['hl_js']
+let g:formatdef_sqlformat = '" sqlformat --keywords upper -" '
+let g:formatters_sql = ['sqlformat']
+" 保存时自动格式化指定文件类型代码
+" au BufWrite *:Autoformat
+" autocmd BufWrite *.sql,*.c,*.py,*.java,*.js:Autoformat " 设置发生保存事件时执行格式化。
+
+Plug 'Preservim/Nerdtree'
+Plug 'Xuyuanp/Nerdtree-git-plugin' " 目录树 git 状态显示
+" 设置“<F1>”开启和关闭 NerdTree。
+map <F1> :NERDTreeToggle<CR>
+let NERDTreeChDirMode=1
+let NERDTreeShowBookmarks=1 " 显示书签
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$'] " 设置忽略文件类型
+let NERDTreeWinSize=25 " 窗口大小
+
+Plug 'Mbbill/Undotree'
+" 设置“<F2>”开启和关闭 Undotree。
+map <F2> :UndotreeToggle<CR>
+
+Plug 'Yggdroot/IndentLine'
+let g:indentLine_enabled = 1		" 使插件生效
+let g:indentLine_char = '|'		" 设置缩进字符，可以是 '|', '┆', '┊' 等
+let g:indentLine_conceallevel = 2 	" 使插件正常运行
+
+Plug 'Godlygeek/Tabular'
+
+call plug#end()
 ```
 
 ## 操作
@@ -150,8 +371,6 @@ vnoremap <silent> <C-l> $
 6. 替换模式：正常模式下，按“r”键，可以进入替换模式，进行单字替换，替换完后进入正常模式。正这里我们在“\_vimrc”设置后绑定为“\<Ctrl>＋b”键。常模式下，按“R”键，可以进入连续替换模式，进行连续替换。
 
 ### 快捷键
-
-用\<C+A>：表示 \<Ctrl>＋A；\<A+A>：表示 \<Alt>＋A；\<S+A>：表示 \<Shift>＋A；\<W+A>：表示 \<Win>＋A。
 
 #### 移动 
 
@@ -258,53 +477,14 @@ vnoremap <silent> <C-l> $
 在“\_vimrc”文件内，添加内容：
 
 ```
-" 安装插件。
 call plug#begin()
 
-Plug 'Vim-airline/Vim-airline'
-
-Plug 'Chiel92/Vim-autoformat'
-let g:autoformat_verbosemode=0 " 详细模式。
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 1
-let g:autoformat_remove_trailing_spaces = 1
-let g:formatdef_hl_js='" js-beautify" '
-let g:formatdef_hl_c='" clang-format -style=\" {BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, PointerAlignment: Right, ColumnLimit: 150, SpacesBeforeTrailingComments: 1}\" " ' " 指定格式化的方式, 使用配置参数。
-let g:formatters_c = ['hl_c']
-let g:formatters_cpp = ['hl_c']
-let g:formatters_json = ['hl_js']
-let g:formatters_js = ['hl_js']
-let g:formatdef_sqlformat = '" sqlformat --keywords upper -" '
-let g:formatters_sql = ['sqlformat']
-" 保存时自动格式化指定文件类型代码
-" au BufWrite *:Autoformat
-" autocmd BufWrite *.sql,*.c,*.py,*.java,*.js:Autoformat " 设置发生保存事件时执行格式化。
-
-Plug 'Preservim/Nerdtree'
-Plug 'Xuyuanp/Nerdtree-git-plugin' " 目录树 git 状态显示
-" 设置“<F1>”开启和关闭 NerdTree。
-map <F1> :NERDTreeToggle<CR>
-let NERDTreeChDirMode=1
-let NERDTreeShowBookmarks=1 " 显示书签
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$'] " 设置忽略文件类型
-let NERDTreeWinSize=25 " 窗口大小
-
-Plug 'Mbbill/Undotree'
-" 设置“<F2>”开启和关闭 Undotree。
-map <F2> :UndotreeToggle<CR>
-
-Plug 'Yggdroot/IndentLine'
-let g:indentLine_enabled = 1		" 使插件生效
-let g:indentLine_char = '|'		" 设置缩进字符，可以是 '|', '┆', '┊' 等
-let g:indentLine_conceallevel = 2 	" 使插件正常运行
-
-Plug 'Godlygeek/Tabular'
-nnoremap <silent> <C-t> :Tabularize \/\|\/
-snoremap <silent> <C-t> :Tabularize \/\|\/
-vnoremap <silent> <C-t> :Tabularize \/\|\/
+Plug ' '
 
 call plug#end()
 ```
+
+其中 Plug ' '内是插件名，多个插件分行并列。
 
 最后，启动 Vim，安装插件。
 

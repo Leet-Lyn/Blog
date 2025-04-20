@@ -68,41 +68,40 @@ Vimium 提供基于 Vim 键盘的网页导航和控制的 Mozilla Firefox 插件
 unmapAll
 
 # 标签页内
-map e scrollUp                                # 向上滚动（k）
-map d scrollDown                            # 向下滚动（j）
-map s scrollLeft                                # 向左滚动（h）
-map f scrollRight                              # 向右滚动（l）
-map t scrollToTop                             # 滚动到顶部（gg）
-map g scrollToBottom                      # 滚动到底部（G）
-map u reload                                    # 重新加重（r）
-map y copyCurrentUrl                      # 复制当前页网址（yy）
-map p openCopiedUrlInNewTab      # 新标签打开复制的地址（P）
-map P openCopiedUrlInCurrentTab # 本标签打开复制的地址（p）
-map z focusInput                              # 聚焦到第一个文本输入框（gi）
+map e scrollUp					# 向上滚动（k）
+map d scrollDown				# 向下滚动（j）
+map s scrollLeft				# 向左滚动（h）
+map f scrollRight				# 向右滚动（l）
+map t scrollToTop				# 滚动到顶部（gg）
+map g scrollToBottom			# 滚动到底部（G）
+map u reload					# 重新加重（r）
+map y copyCurrentUrl			# 复制当前页网址（yy）
+map p openCopiedUrlInNewTab		# 新标签打开复制的地址（P）
+map P openCopiedUrlInCurrentTab	# 本标签打开复制的地址（p）
+map z focusInput				# 聚焦到第一个文本输入框（gi）
 
 # 标签页
-map t createTab                                                                        # 新建一个标签页（t）
-map l LinkHints.activateModeToOpenInNewForegroundTab    # 新标签打开链接（F）
-map L LinkHints.activateMode                                                  # 本标签打开链接（f）
-map o Vomnibar.activateInNewTab                                           # 新标签打开（O）
-map O Vomnibar.activate                                                          # 本标签打开（o）
-map W goBack                                                                          # 历史后退（H）
-map R goForward                                                                      # 历史前进（L）
-map w previousTab                                                                   # 左侧的标签页（J）
-map r nextTab                                                                           # 右侧的标签页（K）
-map q visitPreviousTab                                                             # 前一个访问的标签页（^）
-map x removeTab                                                                     # 关闭标签页（x）
-map z restoreTab                                                                      # 撤销关闭当前页（X）
+map t createTab											# 新建一个标签页（t）
+map l LinkHints.activateModeToOpenInNewForegroundTab	# 新标签打开链接（F）
+map L LinkHints.activateMode							# 本标签打开链接（f）
+map o Vomnibar.activateInNewTab							# 新标签打开（O）
+map O Vomnibar.activate									# 本标签打开（o）
+map W goBack											# 历史后退（H）
+map R goForward											# 历史前进（L）
+map w previousTab										# 左侧的标签页（J）
+map r nextTab											# 右侧的标签页（K）
+map q visitPreviousTab									# 前一个访问的标签页（^）
+map x removeTab											# 关闭标签页（x）
+map z restoreTab										# 撤销关闭当前页（X）
 
 # 模式选择
-map i enterInsertMode            # 编辑模式（i）
-map j enterVisualMode           # 可视模式（v）
-map k enterVisualLineMode   # 可视行模式（V）
-map / enterFindMode              # 搜索模式（/）
-map . performFind                   # 下一个匹配项（n）
-map , performBackwardsFind  # 下一个匹配项（N）
+map i enterInsertMode		# 编辑模式（i）
+map j enterVisualMode		# 可视模式（v）
+map k enterVisualLineMode	# 可视行模式（V）
+map / enterFindMode			# 搜索模式（/）
+map . performFind			# 下一个匹配项（n）
+map , performBackwardsFind	# 下一个匹配项（N）
 
 # 帮助
-map ? showHelp  # 帮助（?）
+map ? showHelp	# 帮助（?）
 ```
-

@@ -46,75 +46,28 @@ Vim 的配置文件在安装目录下的“\_vimrc”。它没有后缀名，但
 这是我个人向设置：
 
 ```
-" Vim with all enhancements
-source $VIMRUNTIME/vimrc_example.vim
+set autoread " 自动更新，当文件在外部被修改时。
+set autowrite  " 自动保存。
+set clipboard+=unnamed " 共享剪切板。
+set nobackup  " 不备份。
+set noundofile  " 无撤销文件。
+set noswapfile  " 无 swap 文件。
+set noexpandtab  " 避免“<Tab>”转为空格。
+set wrap  " 自动换行。
+set hlsearch  " 搜索时高亮。
+set ignorecase  " 查找大小写不敏感，
+set smartcase  " 如果有一个大写字母则切换到大小写敏感查找。
+set guifont=Cascadia\ Mono:h18    " 设置字体。
+set number  " 设置行号。
+set ruler  " 显示标尺。
+set showmatch  " 高亮显示匹配的括号。
+set ambiwidth=double " 设置为双倍字符宽度。
 
-" Remap a few keys for Windows behavior
-source $VIMRUNTIME/mswin.vim
+let mapleader=" `" " 设置先导键为“`”。
 
-" Mouse behavior (the Windows way)
-behave mswin
+syntax enable  " 自动开启语法高亮。
 
-" Use the internal diff if available.
-" Otherwise use the special 'diffexpr' for Windows.
-if &diffopt !~# 'internal'
-  set diffexpr=MyDiff()
-endif
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '" ' . arg1 . '" ' | endif
-  let arg1 = substitute(arg1, '!', '\!', 'g')
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '" ' . arg2 . '" ' | endif
-  let arg2 = substitute(arg2, '!', '\!', 'g')
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '" ' . arg3 . '" ' | endif
-  let arg3 = substitute(arg3, '!', '\!', 'g')
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      if empty(&shellxquote)
-        let l:shxq_sav = ''
-        set shellxquote&
-      endif
-      let cmd = '" ' . $VIMRUNTIME . '\diff" '
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff" '
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  let cmd = substitute(cmd, '!', '\!', 'g')
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-  if exists('l:shxq_sav')
-    let &shellxquote=l:shxq_sav
-  endif
-endfunction
-
-set autoread										" 自动更新，当文件在外部被修改时。
-set autowrite										" 自动保存。
-set clipboard+=unnamed					" 共享剪切板。
-set nobackup										" 不备份。
-set noundofile										" 无撤销文件。
-set noswapfile										" 无 swap 文件。
-set noexpandtab									" 避免“<Tab>”转为空格。
-set wrap												" 自动换行。
-set hlsearch											" 搜索时高亮。
-set ignorecase										" 查找大小写不敏感，
-set smartcase										" 如果有一个大写字母则切换到大小写敏感查找。
-set guifont=Cascadia\ Mono:h18		" 设置字体。
-set number											" 设置行号。
-set ruler												" 显示标尺。
-set showmatch									" 高亮显示匹配的括号。
-set ambiwidth=double							" 设置为双倍字符宽度。
-
-let mapleader=" `"								" 设置先导键为“`”。
-
-syntax enable										" 自动开启语法高亮。
-
-autocmd VimEnter * :startinsert			" 预设编辑模式。
+autocmd VimEnter * :startinsert " 预设编辑模式。
 
 " 预设为窗口最大化。
 if has('win32') || has('win64')    
@@ -126,7 +79,7 @@ function! MaximizeWindow()
 	silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
-" 上移一个屏幕行，若无法移动，则跳到行首
+" 上移一个屏幕行，若无法移动，则跳到行首。
 function! MoveUp()
   let [old_line, old_col] = [line('.'), col('.')]
   normal! gk
@@ -135,7 +88,7 @@ function! MoveUp()
   endif
 endfunction
 
-" 下移一个屏幕行，若无法移动，则跳到行尾
+" 下移一个屏幕行，若无法移动，则跳到行尾。
 function! MoveDown()
   let [old_line, old_col] = [line('.'), col('.')]
   normal! gj
@@ -144,7 +97,7 @@ function! MoveDown()
   endif
 endfunction
 
-" 左移一个字符，若无法移动，则跳到上一行末尾
+" 左移一个字符，若无法移动，则跳到上一行末尾。
 function! MoveLeft()
   let [old_line, old_col] = [line('.'), col('.')]
   normal! h
@@ -153,7 +106,7 @@ function! MoveLeft()
   endif
 endfunction
 
-" 右移一个字符，若无法移动，则跳到下一行行首
+" 右移一个字符，若无法移动，则跳到下一行行首。
 function! MoveRight()
   let [old_line, old_col] = [line('.'), col('.')]
   normal! l
@@ -161,13 +114,6 @@ function! MoveRight()
     normal! gj^
   endif
 endfunction
-
-" 绑定方向键
-nnoremap <silent> <Up>    :call MoveUp()<CR>
-nnoremap <silent> <Down>  :call MoveDown()<CR>
-nnoremap <silent> <Left>  :call MoveLeft()<CR>
-nnoremap <silent> <Right> :call MoveRight()<CR>
-
 
 " 移动映射
 nnoremap <silent> <Up> :call MoveUp()<CR>
@@ -336,12 +282,12 @@ let g:formatters_sql = ['sqlformat']
 " autocmd BufWrite *.sql,*.c,*.py,*.java,*.js:Autoformat " 设置发生保存事件时执行格式化。
 
 Plug 'Preservim/Nerdtree'
-Plug 'Xuyuanp/Nerdtree-git-plugin' " 目录树 git 状态显示
+Plug 'Xuyuanp/Nerdtree-git-plugin' " 目录树 git 状态显示。
 " 设置“<F1>”开启和关闭 NerdTree。
 map <F1> :NERDTreeToggle<CR>
 let NERDTreeChDirMode=1
 let NERDTreeShowBookmarks=1 " 显示书签
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$'] " 设置忽略文件类型
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$'] " 设置忽略文件类型。
 let NERDTreeWinSize=25 " 窗口大小
 
 Plug 'Mbbill/Undotree'
@@ -349,9 +295,9 @@ Plug 'Mbbill/Undotree'
 map <F2> :UndotreeToggle<CR>
 
 Plug 'Yggdroot/IndentLine'
-let g:indentLine_enabled = 1		" 使插件生效
-let g:indentLine_char = '|'		" 设置缩进字符，可以是 '|', '┆', '┊' 等
-let g:indentLine_conceallevel = 2 	" 使插件正常运行
+let g:indentLine_enabled = 1  " 使插件生效。
+let g:indentLine_char = '|'  " 设置缩进字符，可以是 '|', '┆', '┊' 等。
+let g:indentLine_conceallevel = 2  " 使插件正常运行。
 
 Plug 'Godlygeek/Tabular'
 

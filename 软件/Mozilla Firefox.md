@@ -64,44 +64,85 @@ Vimium 提供基于 Vim 键盘的网页导航和控制的 Mozilla Firefox 插件
 这是我自己自定义的映射键：
 
 ```
-# 解除绑定
 unmapAll
 
-# 标签页内
-map e scrollUp					# 向上滚动（k）
-map d scrollDown				# 向下滚动（j）
-map s scrollLeft				# 向左滚动（h）
-map f scrollRight				# 向右滚动（l）
-map t scrollToTop				# 滚动到顶部（gg）
-map g scrollToBottom			# 滚动到底部（G）
-map u reload					# 重新加重（r）
-map y copyCurrentUrl			# 复制当前页网址（yy）
-map p openCopiedUrlInNewTab		# 新标签打开复制的地址（P）
-map P openCopiedUrlInCurrentTab	# 本标签打开复制的地址（p）
-map z focusInput				# 聚焦到第一个文本输入框（gi）
+map s scrollLeft
+map d scrollDown
+map e scrollUp
+map f scrollRight
+map t scrollToTop
+map g scrollToBottom
+map u reload
+map y copyCurrentUrl
+map p openCopiedUrlInNewTab
+map P openCopiedUrlInCurrentTab
+map h focusInput
 
-# 标签页
-map t createTab											# 新建一个标签页（t）
-map l LinkHints.activateModeToOpenInNewForegroundTab	# 新标签打开链接（F）
-map L LinkHints.activateMode							# 本标签打开链接（f）
-map o Vomnibar.activateInNewTab							# 新标签打开（O）
-map O Vomnibar.activate									# 本标签打开（o）
-map W goBack											# 历史后退（H）
-map R goForward											# 历史前进（L）
-map w previousTab										# 左侧的标签页（J）
-map r nextTab											# 右侧的标签页（K）
-map q visitPreviousTab									# 前一个访问的标签页（^）
-map x removeTab											# 关闭标签页（x）
-map z restoreTab										# 撤销关闭当前页（X）
+map t createTab
+map w previousTab
+map r nextTab
+map W goBack
+map R goForward
+map q visitPreviousTab
+map o Vomnibar.activateInNewTab
+map O Vomnibar.activate
+map l LinkHints.activateModeToOpenInNewForegroundTab
+map L LinkHints.activateMode
+map x removeTab
+map z restoreTab
 
-# 模式选择
-map i enterInsertMode		# 编辑模式（i）
-map j enterVisualMode		# 可视模式（v）
-map k enterVisualLineMode	# 可视行模式（V）
-map / enterFindMode			# 搜索模式（/）
-map . performFind			# 下一个匹配项（n）
-map , performBackwardsFind	# 下一个匹配项（N）
+map i enterInsertMode
+map j enterVisualMode
+map k enterVisualLineMode
+map / enterFindMode
+map . performFind
+map , performBackwardsFind
 
-# 帮助
-map ? showHelp	# 帮助（?）
+map ? showHelp
 ```
+
+#### 网页
+
+| 键位 | 原键位 | 功能                     |
+| ---  | ---    | ---                      |
+| s    | h      | 向左滚动。               |
+| d    | j      | 向下滚动。               |
+| e    | k      | 向上滚动。               |
+| f    | l      | 向右滚动。               |
+| t    | gg     | 滚动到顶部。             |
+| g    | G      | 滚动到底部。             |
+| u    | r      | 重新加载。               |
+| y    | yy     | 复制当前页网址。         |
+| p    | P      | 新标签打开复制的地址。   |
+| P    | p      | 本标签打开复制的地址。   |
+| h    | gi     | 聚焦到第一个文本输入框。 |
+
+#### 标签页
+
+| 键位 | 原键位 | 功能                     |
+| ---  | ---    | ---                      |
+| t    | t      | 新建一个标签页。         |
+| w    | J      | 访问左侧的标签页。       |
+| r    | K      | 访问右侧的标签页。       |
+| W    | H      | 历史后退。               |
+| R    | L      | 历史前进。               |
+| q    | ^      | 访问前一个访问的标签页。 |
+| o    | O      | 新标签打开。             |
+| O    | o      | 本标签打开。             |
+| l    | F      | 新标签打开链接。         |
+| L    | f      | 本标签打开链接。         |
+| x    | x      | 关闭标签页。             |
+| z    | X      | 撤销关闭当前页。         |
+
+#### 模式
+
+| 键位 | 原键位 | 功能             |
+| ---  | ---    | ---              |
+| i    | i      | 进入编辑模式。   |
+| j    | v      | 进入可视模式。   |
+| k    | V      | 进入可视行模式。 |
+| /    | V      | 进入搜索模式。   |
+| .    | n      | 下一个匹配项。   |
+| ,    | N      | 上一个匹配项。   |
+| ?    | ?      | 帮助。           |
+

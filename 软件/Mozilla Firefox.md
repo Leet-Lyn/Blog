@@ -146,3 +146,119 @@ map ? showHelp
 | ,    | N      | 上一个匹配项。   |
 | ?    | ?      | 帮助。           |
 
+### Tampermonkey
+
+Tampermonkey 允许用户自定义并增强您最喜爱的网页的功能。用户脚本是小型 JavaScript 程序，可用于向网页添加新功能或修改现有功能。可以在以下几个网站寻找脚本：
+
+https://greasyfork.org/zh-CN
+https://www.userscript.zone/
+https://openuserjs.org/
+https://gist.github.com/
+
+### Link Gopher
+
+Link Gopher 能从网页中提取所有链接，对其进行排序，删除重复项，并在新标签页中显示，以便复制粘贴到其他系统。
+
+### GlitterDrag
+
+GlitterDrag 能拖放文本、链接和图片，并支持打开、复制或搜索这些内容。用户可以根据需求选择不同的操作方式。
+
+### Undo Close Tab
+
+Undo Close Tab 能帮助用户轻松找到那些你关闭的标签。
+
+### Batch Page Loader
+
+Batch Page Loader 能帮助用户批量打开有连续编号的网页。
+
+### ClearURLs
+
+ClearURLs 能从 URL 中移除跟踪元素。
+
+### Cookies.txt
+
+Cookies.txt 能帮助用户将 cookie 导出到 Netscape HTTP Cookie 文件。以便被 curl、wget、youtube-dl 等程序所使用。
+
+### Edit Anything
+
+Edit Anything 允许用户在任何网站上编辑网页内容。
+
+### EditThisCookie
+
+EditThisCookie 是一个 cookie 管理器。用户可以添加，删除，编辑，搜索，锁定和屏蔽 cookies。
+
+### Floccus Bookmarks Sync
+
+Floccus Bookmarks Sync 能帮助用户跨浏览器和设备私下同步您的书签。
+
+### IDM Integration Module
+
+IDM Integration Module 能调用 IDM 下载。
+
+### Joplin Web Clipper
+
+Joplin Web Clipper 能将网页内容剪辑后保存到 Joplin 中。
+
+### Obsidian Web Clipper
+
+Obsidian Web Clipper 能将网页内容剪辑后保存到 Obsidian 中。
+
+### LiveHosts
+
+LiveHosts 能使用额外的 Host 标头将域重定向到所选 IP 来浏览。
+
+### MarkDownload
+
+MarkDownload 能将网页内容剪辑后保存成 markdown 格式。
+
+### NextPrev Page 
+
+通过增加或减少 URL 中的最后一个数字来显示下一页或上一页。
+
+### Print Edit WE
+
+Print Edit WE 能帮助用户在打印或保存之前编辑网页内容。
+
+### Save Page WE
+
+Save Page WE 能帮助用户将完整网页保存为单个 html 文件。
+
+### SingleFile
+
+SingleFile 能帮助用户将完整网页保存为单个 html 文件。
+
+### Proxy SwitchyOmega
+
+Proxy SwitchyOmega 能帮助用户轻松快捷地管理和切换多个代理设置。
+
+### Read Aloud
+
+Read Aloud 可以帮助用户朗读页面上的文本。
+
+### RSSHub Radar
+
+轻RSSHub Radar 松发现并订阅与当前页面相关的 RSS 源，快速探索并订阅当前页面支持的 RSSHub。
+
+### Ruffle
+
+Ruffle 是一款 Flash 模拟器。
+
+### Translate Web Pages
+
+Translate Web Pages 使用 Google 或 Yandex 实时翻译您的页面。
+
+### uBlock Origin
+
+uBlock Origin 是一款高效的网络请求过滤工具。
+
+### User-Agent Switcher
+
+User-Agent Switcher 允许用户轻松地更改浏览器发送给服务器的 User-Agent 字符串。
+
+### Video DownloadHelper
+
+Video DownloadHelper 允许用户从网站中提取视频和图像文件并将它们保存到您的硬盘。
+
+### Wallabagger
+
+Wallabagger 能将网页内容后保存到 Wallabagger 中。

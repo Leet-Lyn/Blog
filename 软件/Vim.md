@@ -9,9 +9,9 @@
 * 评分：10
 * 评价：Vim 是一种哲学。
 * 封面：
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/-2091442061.1.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/-2091442061.1.avif)
 * 图片：
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-16_04-03-16.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-16_04-03-16.avif)
 * 简介：Vim 是一个类似于 Vi 的高度可定制的文本编辑器，在 Vi 的基础上改进和增加了很多特性。
 ---
 * 现文件名：\[gVim]\[9.1.0]\[CHS].7z
@@ -438,7 +438,7 @@ call plug#end()
 :PlugInstall    ; 安装所有插件
 ```
 
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-16_05-14-39.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-16_05-14-39.avif)
 
 插件的其他命令：
 
@@ -452,7 +452,7 @@ call plug#end()
 
 Vim-airline 插件用来在底部与顶部展示状态信息的。
 
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-19_02-35-37.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-19_02-35-37.avif)
 
 ### Chiel92/Vim-autoformat
 
@@ -462,19 +462,19 @@ Vim-airline 插件用来在底部与顶部展示状态信息的。
 
 这是 Vim 编辑器的文件系统浏览器。
 
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-19_02-34-19.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-19_02-34-19.avif)
 
 ### Mbbill/Undotree
 
 这是用来查看内容变更历史，以便于撤销或者重做的操作。
 
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-19_02-34-45.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-19_02-34-45.avif)
 
 ### Yggdroot/IndentLine
 
 这是用来在 vim 中提供缩进线标示功能的。
 
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-19_02-38-33.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Vim/PixPin_2025-04-19_02-38-33.avif)
 
 ### Godlygeek/Tabular
 

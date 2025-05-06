@@ -9,9 +9,9 @@
 * 评分：10
 * 评价：Mozilla Firefox 是我的浏览器。
 * 封面：
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Mozilla%20Firefox/2043717329.1.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Mozilla%20Firefox/2043717329.1.avif)
 * 图片：
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Mozilla%20Firefox/PixPin_2025-04-21_00-45-09.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Mozilla%20Firefox/PixPin_2025-04-21_00-45-09.avif)
 * 简介：Mozilla Firefox 是一款自由的，开放源码的网页浏览器。
 ---
 * 现文件名：
@@ -121,7 +121,7 @@ map ? showHelp
 
 | 键位 | 原键位 | 功能                     |
 | ---  | ---    | ---                      |
-| t    | t      | 新建一个标签页。         |
+| c    | t      | 新建一个标签页。         |
 | w    | J      | 访问左侧的标签页。       |
 | r    | K      | 访问右侧的标签页。       |
 | W    | H      | 历史后退。               |

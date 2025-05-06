@@ -7,11 +7,11 @@
 * 类型：输入工具
 ---
 * 评分：10
-* 评价：近乎完美的。
+* 评价：近乎完美的输入法。
 * 封面：
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Rime/-1651229149.1.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Rime/-1651229149.1.avif)
 * 图片：
-![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Rime/PixPin_2025-04-24_02-37-36.jpg)
+![](https://alist.linmoumoulinny.top/p/Webdav/VPS/Storages/Articles/Blog/%E8%BD%AF%E4%BB%B6/Rime/PixPin_2025-04-24_02-37-36.avif)
 * 简介：Rime 是一种开源的输入法引擎，旨在为不同操作系统和平台提供高度可定制和灵活的输入法解决方案。
 ---
 * 现文件名：
